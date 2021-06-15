@@ -1,0 +1,36 @@
+plugins {
+    id "org.springframework.boot" version "2.5.1"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id "java"
+    id "com.netflix.dgs.codegen" version "4.6.6"
+}
+
+group = "com.aurelius"
+version = "0.0.1-SNAPSHOT"
+sourceCompatibility = "11"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // maven equivalent of <dependencyManagement />
+    implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
+
+    // maven equivalent of <dependencies />
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
+
+    // maven equivalent of <dependencies /> with <scope> test
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+generateJava{
+    schemaPaths = ["${projectDir}/src/main/resources/schema"] // List of directories containing schema files
+    packageName = "com.aurelius.connectors.dgs.graphiqlonline.generated" // The package name to use to generate sources
+    generateClient = true // Enable generating the type safe query API
+}
