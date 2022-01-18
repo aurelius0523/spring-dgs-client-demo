@@ -34,3 +34,4 @@ to make API calls to a graphql server.
    PR [here](https://github.com/Netflix/dgs-codegen/issues/64). This can still
    be done with manual query but requires custom object/model that matches the
    alias
+test
